@@ -44,33 +44,6 @@ limitations under the License.
 </style>
 
 <script>
-function _arrayBufferToBase64( buffer ) {
-    var binary = '';
-    var bytes = new Uint8Array( buffer );
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
-    }
-    return btoa( binary );
-}
-
-function _base64ToArrayBuffer(base64) {
-    var binary_string =  atob(base64);
-    var len = binary_string.length;
-    var bytes = new Uint8Array( len );
-    for (var i = 0; i < len; i++)        {
-        bytes[i] = binary_string.charCodeAt(i);
-    }
-    return bytes.buffer;
-}
-  
-  fetch('main.wasm')
-    .then(response => response.arrayBuffer())
-    .then(buf => {
-      const str = _arrayBufferToBase64(buf);
-      console.log(str);
-      console.log(_base64ToArrayBuffer(str))
-    })
   if (location.protocol === 'http:' && location.hostname !== 'localhost')
     location.protocol = 'https:';
   if ('paintWorklet' in CSS) {
