@@ -13,6 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+let main_foo;
+
+fetch('main.wasm').then(response =>
+  response.arrayBuffer()
+).then(bytes => WebAssembly.instantiate(bytes)).then(results => {
+  instance = results.instance;
+  main_foo = instance.exports.main(10);
+}).catch(console.error);
 
 registerPaint('border-colors', class {
   static get inputProperties() {
@@ -29,6 +37,7 @@ registerPaint('border-colors', class {
   }
 
   paint(ctx, size, styleMap) {
+    console.log('function', typeof main_foo);
     const t = 0;
     const r = size.width;
     const b = size.height;
