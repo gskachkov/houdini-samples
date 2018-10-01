@@ -14,9 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+let main_foo;
+
+fetch('main.wasm').then(response =>
+  response.arrayBuffer()
+).then(bytes => WebAssembly.instantiate(bytes)).then(results => {
+  instance = results.instance;
+  main_foo = instance.exports.main(10);
+}).catch(console.error);
+
 registerPaint('ripple', class {
     static get inputProperties() { return ['background-color', '--ripple-color', '--animation-tick', '--ripple-x', '--ripple-y']; }
     paint(ctx, geom, properties) {
+      console.log('function', typeof main_foo);
       const bgColor = properties.get('background-color').toString();
       const rippleColor = properties.get('--ripple-color').toString();
       const x = parseFloat(properties.get('--ripple-x').toString());
