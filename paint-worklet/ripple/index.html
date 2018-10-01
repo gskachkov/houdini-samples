@@ -48,10 +48,21 @@ limitations under the License.
     return String.fromCharCode.apply(null, new Uint16Array(buf));
   }
 
+  function str2ab(str) {
+    var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+    var bufView = new Uint16Array(buf);
+    for (var i=0, strLen=str.length; i < strLen; i++) {
+      bufView[i] = str.charCodeAt(i);
+    }
+    return buf;
+  }
+
   fetch('main.wasm')
     .then(response => response.arrayBuffer())
     .then(buf => {
-      console.log(ab2str(buf));
+      const str = ab2str(buf);
+      console.log(str);
+      console.log(str2ab(str))
     })
   if (location.protocol === 'http:' && location.hostname !== 'localhost')
     location.protocol = 'https:';

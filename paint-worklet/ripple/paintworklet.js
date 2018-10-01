@@ -29,6 +29,7 @@ registerPaint('ripple', class {
     static get inputProperties() { return ['background-color', '--ripple-color', '--animation-tick', '--ripple-x', '--ripple-y']; }
     paint(ctx, geom, properties) {
       console.log('function', typeof main_foo);
+      console.log(this);
       const bgColor = properties.get('background-color').toString();
       const rippleColor = properties.get('--ripple-color').toString();
       const x = parseFloat(properties.get('--ripple-x').toString());
@@ -54,3 +55,5 @@ registerPaint('ripple', class {
       ctx.fill();
     }
 });
+
+onmessage((evt) => console.log(evt));
