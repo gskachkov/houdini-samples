@@ -20,6 +20,8 @@ registerAnimator('twitter-header', class {
   animate(currentTime, effect) {
     console.log(`animate: ${currentTime} and ${effect}`);
     console.log(currentTime, effect);
-    effect.localTime = currentTime;
+    if (currentTime < 500) effect.localTime = currentTime;
+      else
+    effect.localTime =  currentTime / 2;
   }
 });
